@@ -13,14 +13,14 @@ function makeGraphs(error, projectsJson){
 
     //Clean projectJson data
     var donorsUSProjects = projectsJson; //Pass the data inside the projectsJson variable into our dataSet variable
-    var dataFormat = d3.time.format("%Y-%m-%d %H:%M:%S"); // Parse the date data type to suit our charting needs
+    var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S"); // Parse the date data type to suit our charting needs
     donorsUSProjects.forEach(function(d){
         d["date_posted"] = dateFormat.parse(d["date_posted"]); //Set the data type as number using the + operator
         d["date_posted"].setDate(1); // we set all projects date days to 1.
         // All projects from the same month will have the same dateime value
         d["total_donations"] = +d["total_donations"]
     });
-}
+
 
     //Ingesting the data into a crossfilter instance and creating dimensions based on the crossfilter instance
     //Crossfilter acts as a two way data binding pipeline.
