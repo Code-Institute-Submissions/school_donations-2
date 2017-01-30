@@ -69,7 +69,7 @@ function makeGraphs(error, projectsJson){
 
     //Define values (to be used in charts)
     var minDate = dateDim.bottom(1)[0]["date_posted"];
-    var maxDate = dateDim/top(1)[0]["date_posted"];
+    var maxDate = dateDim.top(1)[0]["date_posted"];
 
     //We define the chart types objects using DC.js library.
     //We also bind the charts to the div ID's in index.html
