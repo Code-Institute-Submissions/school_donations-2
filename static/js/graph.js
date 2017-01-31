@@ -106,7 +106,7 @@ function makeGraphs(error, projectsJson){
     timeChart
         .width(800)
         .height(200)
-        .margins({top:10, right:50, bottom:30, left:50})
+        .margins({top:20, right:50, bottom:30, left:50})
         .dimension(dateDim)
         .group(numProjectsByDate)
         .transitionDuration(500)
