@@ -1,3 +1,8 @@
+#container {
+    background-image: url("../img/blackboard.jpg");
+
+}
+
 #number-projects-nd {
    font-size: 60px;
 }
@@ -6,8 +11,20 @@
    font-size: 60px;
 }
 
+#n-donations{
+    background: #58D68D;
+    position: relative;
+    font-size: 29px;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 0;
+}
 
-
+.chart-title{
+    background-color: #F4F6F6;
+}
 
 .dc-chart g.row text {
    fill: black;
@@ -15,7 +32,7 @@
 }
 
 #total-projects {
-   background: #33CC99;
+   background: #58D68D;
    width: 200px;
    position: relative;
    height: 60px;
@@ -28,7 +45,7 @@
 }
 
 #net-donations {
-   background: #33CC99;
+   background: #58D68D;
    width: 200px;
    position: relative;
    height: 60px;
@@ -42,8 +59,8 @@
 
 
 .dc-select-menu {
-   background: #33CC99;
-   width: 80%;
+   background: #58D68D;
+   width: 100%;
    border: none;
    position: relative;
    height: 31px;
@@ -56,6 +73,20 @@
 
 }
 
-#top-space{
-   margin-top:60px;
+#menu-select{
+    padding: 27px 0;
+}
+
+.intro_button{
+    margin: 0 auto 10px auto;
+    display: block;
+    width: 150px;
+    height: 50px;
+    background-color: #d58512;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.intro_button:hover{
+    background-color: #58D68D;
 }

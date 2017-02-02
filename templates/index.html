@@ -7,28 +7,92 @@
     <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/keen-dashboards.css')}}">
     <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/dc.css')}}">
     <link rel="stylesheet" href="{{ url_for ('static', filename='css/custom.css')}}">
-    <link rel="stylesheet" href="css/introjs.css" />
+    <link rel="stylesheet" href="../static/lib/css/introjs.css" />
 </head>
-<body class="appliation">
+<body class="application" id="container">
+
    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="./">School Donations Dashboard</a>
             </div>
-            <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
+
         </div>
     </div>
-    <div id="top-space"></div>
-    <div id="outer" class="container-fluid">
+   <div id="start-tour" class="container-fluid">
+       <div class="row">
+           <div class="col-sm-6 col-sm-offset-4" data-step="1"
+                data-intro="This dashboard was created using a dataset from DonorsChoose.org.
+                <br />The data represents school donations broken down by different attributes over a timeline.
+                <br />In each graph you can select the values you want to see reflected in the rest of the dashboard.
+                E.g. Select only 2016 in the timeline or select only Technology resources in the Resources graph.
+                <br />Now we will see an explanation of each graph"
+                             style="font-weight: normal" data-position="center"></div>
+           <div class="col-sm-12">
 
-        <div class="row">
+
+                <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
+
+           </div>
+       </div>
+   </div>
+    <div id="outer" class="container-fluid">
+        <div class="row" >
+            <!-- menu select -->
+            <div class="col-sm-3">
+                <div class="chart-wrapper" data-step="2"
+                     data-intro="Select the state whose projects data you want to see."
+                     style="font-weight: normal" data-position="right">
+                    <div class="chart-title">
+                        Donation State
+                    </div>
+                    <div class="chart-stage">
+                        <div id="menu-select"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End menu select -->
+
+            <!-- Metric 1 -->
+            <div class="col-sm-3 ">
+                <div class="chart-wrapper" data-step="3"
+                    data-intro="This shows the total number of donations for the selected criteria."
+                    style="font-weight: normal" data-position="right">
+                    <div class="chart-title">
+                        Total Number of Donations
+                    </div>
+                    <div id="n-donations" class="chart-stage" >
+                        <div id="number-projects-nd"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Metric 1 -->
+
+            <!-- Metric 2 -->
+            <div class="col-sm-3 ">
+                <div class="chart-wrapper" data-step="4"
+                    data-intro="This shows the total amount donated for the projects for the selected criteria."
+                    style="font-weight: normal" data-position="left">
+                    <div class="chart-title">
+                        Total Donations in USD
+                    </div>
+                    <div class="chart-stage">
+                        <div id="total-donations-nd"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Metric 2 -->
+
+
             <div class="col-sm-8">
 
                 <div class="row">
 
                     <!-- Time Chart -->
                     <div class="col-sm-12">
-                        <div class="chart-wrapper">
+                        <div class="chart-wrapper" data-step="5"
+                             data-intro="Shows the number of donations per month/year."
+                         style="font-weight: normal" data-position="right">
                             <div class="chart-title">
                                 Number of Donations
                             </div>
@@ -45,7 +109,9 @@
                             <div class="chart-title">
                                 Resources Type
                             </div>
-                            <div class="chart-stage">
+                            <div class="chart-stage" data-step="7"
+                                 data-intro="Shows the types of resources the projects were needed for."
+                                 style="font-weight: normal" data-position="right">
                                 <div id="resource-type-row-chart"></div>
                             </div>
                         </div>
@@ -54,7 +120,9 @@
 
                     <!-- funding Pie -->
                     <div class="col-sm-6">
-                        <div class="chart-wrapper">
+                        <div class="chart-wrapper" data-step="8"
+                             data-intro="Shows the amount of projects that got the funding vs. the ones with funding expired and reallocated."
+                             style="font-weight: normal" data-position="right">
                             <div class="chart-title">
                                 Funding Status
                             </div>
@@ -69,7 +137,9 @@
 
             <!-- Poverty -->
             <div class="col-sm-3">
-                <div class="chart-wrapper">
+                <div class="chart-wrapper" data-step="6"
+                             data-intro="Shows the poverty level of the people beneficiary of the project"
+                             style="font-weight: normal" data-position="left">
                     <div class="chart-title">
                         Poverty Level
                     </div>
@@ -81,51 +151,7 @@
             <!-- End Poverty -->
 
 
-            <!-- menu select -->
-            <div class="col-sm-6">
-                <div class="chart-wrapper">
-                    <div class="chart-title">
-                        Donation State
-                    </div>
-                    <div class="chart-stage">
-                        <div id="menu-select"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- End menu select -->
 
-            <!-- Metric 1 -->
-            <div class="col-sm-2">
-                <div class="chart-wrapper">
-                    <div class="chart-title">
-                        Total Number of Donations
-                    </div>
-                    <div class="chart-stage" style="background: #33CC99;
-                        position: relative;
-                        font-size: 29px;
-                        color: white;
-                        vertical-align: middle;
-                        text-align: center;
-                        padding-top: 12px;
-                        padding-bottom: 0;">
-                        <div id="number-projects-nd"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Metric 1 -->
-
-            <!-- Metric 2 -->
-            <div class="col-sm-2">
-                <div class="chart-wrapper">
-                    <div class="chart-title">
-                        Total Donations in USD
-                    </div>
-                    <div class="chart-stage">
-                        <div id="total-donations-nd"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Metric 2 -->
         </div>
     </div>
 
@@ -141,6 +167,7 @@
 
     <script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
     <script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
-    <script src="js/intro.js" type="text/javascript"></script>
+    <script src="../static/lib/js/intro.js" type="text/javascript"></script>
+
 </body>
 </html>
