@@ -7,9 +7,10 @@
 //This function processes the data and inserts it into the apiData Variable
 queue()
     .defer(d3.json, "/donorsUS/projects")
+    .defer(d3.json, "static/geojson/us-states.json")
     .await(makeGraphs);
 
-function makeGraphs(error, projectsJson){
+function makeGraphs(error, projectsJson, statesJson){
 
     //Clean projectJson data
     var donorsUSProjects = projectsJson; //Pass the data inside the projectsJson variable into our dataSet variable
@@ -49,6 +50,9 @@ function makeGraphs(error, projectsJson){
     var fundingStatus = ndx.dimension(function(d){
         return d["funding_status"];
     });
+    var primaryFocusAreaDim = ndx.dimension(function(d){
+        return d["primary_focus_area"];
+    });
 
     //Calculate metrics and groups for grouping and counting our data
     var numProjectsByDate = dateDim.group();
@@ -59,6 +63,8 @@ function makeGraphs(error, projectsJson){
         return d["total_donations"];
     });
     var stateGroup = stateDim.group();
+    var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
+
 
     var all=ndx.groupAll();
     var totalDonations = ndx.groupAll().reduceSum(function (d){
@@ -80,7 +86,9 @@ function makeGraphs(error, projectsJson){
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
     var totalDonationsND = dc.numberDisplay("#total-donations-nd");
     var fundingStatusChart = dc.pieChart("#funding-chart");
-
+    var usChart = dc.geoChoroplethChart("#us-chart");
+   // var primaryFocusAreaChart = dc.barChart("#primary-focus-area-row-chart");
+    var primaryFocusAreaChart2 = dc.pieChart("#primary-focus-area-pie-chart")
 
     //We assign properties and values to our charts.
     //We also include a select manu to choose between any of all US states for a particlar date
@@ -122,6 +130,39 @@ function makeGraphs(error, projectsJson){
         .group(numProjectsByResourceType)
         .xAxis().ticks(4);
 
+  /*  primaryFocusAreaChart
+        .width(500)
+        .height(300)
+        .dimension(primaryFocusAreaDim)
+        .group(numProjectsByPrimaryFocusArea)
+        .x(d3.scale.ordinal().domain(primaryFocusAreaDim))
+        .xUnits(dc.units.ordinal)
+        .yAxis().ticks(4)
+        ;
+        */
+
+    primaryFocusAreaChart2
+        .height(250)
+        .width(450)
+        .radius(120)
+        .dimension(primaryFocusAreaDim)
+        .group(numProjectsByPrimaryFocusArea)
+        .legend(dc.legend().x(0).y(10))
+        .minAngleForLabel(0.6)
+        .slicesCap(5)
+        .label(function (d) {
+            if (primaryFocusAreaChart2.hasFilter() && !primaryFocusAreaChart2.hasFilter(d.key)) {
+                return d.key + '(0%)';
+            }
+            var label = d.key;
+            if (all.value()) {
+                label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
+            }
+            return label;
+        })
+        .renderLabel(true)
+        .transitionDuration(500);
+
     povertyLevelChart
         .width(300)
         .height(250)
@@ -136,6 +177,27 @@ function makeGraphs(error, projectsJson){
         .transitionDuration(1500)
         .dimension(fundingStatus)
         .group(numProjectsByFundingStatus);
+
+    usChart
+        .width(400)
+        .height(165)
+        .dimension(stateDim)
+        .group(totalDonationsByState)
+        .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
+        .colorDomain([0, max_state])
+        .overlayGeoJson(statesJson["features"], "state", function (d) {
+            return d.properties.name;
+        })
+        .projection(d3.geo.albersUsa()
+                    .scale(350)
+                    .translate([150, 80]))
+        .title(function (p) {
+            return "State: " + p["key"]
+                    + "\n"
+                    + "Total Donations: " + Math.round(p["value"]) + " $";
+        });
+
+
 
     dc.renderAll();
 }

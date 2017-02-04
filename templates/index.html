@@ -38,8 +38,25 @@
    </div>
     <div id="outer" class="container-fluid">
         <div class="row" >
-            <!-- menu select -->
+            <!-- US Map -->
             <div class="col-sm-3">
+                <div class="chart-wrapper" data-step="2"
+                     data-intro="Select the state whose projects data you want to see."
+                     style="font-weight: normal" data-position="right">
+                    <div class="chart-title">
+                        Donation States (Map)
+                    </div>
+                    <div class="chart-stage">
+                        <div id="us-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End US Map -->
+
+
+
+            <!-- menu select -->
+            <div class="col-sm-1">
                 <div class="chart-wrapper" data-step="2"
                      data-intro="Select the state whose projects data you want to see."
                      style="font-weight: normal" data-position="right">
@@ -53,7 +70,7 @@
             </div>
             <!-- End menu select -->
 
-            <!-- Metric 1 -->
+            <!-- Metric Total Projects -->
             <div class="col-sm-3 ">
                 <div class="chart-wrapper" data-step="3"
                     data-intro="This shows the total number of donations for the selected criteria."
@@ -66,9 +83,9 @@
                     </div>
                 </div>
             </div>
-            <!-- End Metric 1 -->
+            <!-- End Metric Total Projects -->
 
-            <!-- Metric 2 -->
+            <!-- Metric Total Donations -->
             <div class="col-sm-3 ">
                 <div class="chart-wrapper" data-step="4"
                     data-intro="This shows the total amount donated for the projects for the selected criteria."
@@ -81,15 +98,16 @@
                     </div>
                 </div>
             </div>
-            <!-- End Metric 2 -->
+            <!-- End Metric Total Donations -->
 
-
-            <div class="col-sm-8">
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
 
                 <div class="row">
 
                     <!-- Time Chart -->
-                    <div class="col-sm-12">
+                    <div class="col-sm-8">
                         <div class="chart-wrapper" data-step="5"
                              data-intro="Shows the number of donations per month/year."
                          style="font-weight: normal" data-position="right">
@@ -103,8 +121,54 @@
                     </div>
                     <!-- End Time Chart -->
 
+                    <!-- funding Pie -->
+                    <div class="col-sm-3">
+                        <div class="chart-wrapper" data-step="8"
+                             data-intro="Shows the amount of projects that got the funding vs. the ones with funding expired and reallocated."
+                             style="font-weight: normal" data-position="right">
+                            <div class="chart-title">
+                                Funding Status
+                            </div>
+                            <div class="chart-stage">
+                                <div id="funding-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End funding Pie -->
+
+                   <!-- Primary Focus Area
+                    <div class="col-sm-4">
+                        <div class="chart-wrapper" data-step="10"
+                                     data-intro="xxxxxxt"
+                                     style="font-weight: normal" data-position="left">
+                            <div class="chart-title">
+                                Primary Focus Area
+                            </div>
+                            <div class="chart-stage">
+                                <div id="primary-focus-area-row-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Primary Focus Area -->
+
+
+                   <!-- Primary Focus Area -->
+                    <div class="col-sm-4">
+                        <div class="chart-wrapper" data-step="10"
+                                     data-intro="xxxxxxt"
+                                     style="font-weight: normal" data-position="left">
+                            <div class="chart-title">
+                                Primary Focus Area
+                            </div>
+                            <div class="chart-stage">
+                                <div id="primary-focus-area-pie-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Primary Focus Area -->
+
                     <!-- Resources -->
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Resources Type
@@ -118,22 +182,8 @@
                     </div>
                     <!-- End Resources -->
 
-                    <!-- funding Pie -->
-                    <div class="col-sm-6">
-                        <div class="chart-wrapper" data-step="8"
-                             data-intro="Shows the amount of projects that got the funding vs. the ones with funding expired and reallocated."
-                             style="font-weight: normal" data-position="right">
-                            <div class="chart-title">
-                                Funding Status
-                            </div>
-                            <div class="chart-stage">
-                                <div id="funding-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End funding Pie -->
-                </div>
-            </div>
+
+
 
             <!-- Poverty -->
             <div class="col-sm-3">
@@ -149,7 +199,6 @@
                 </div>
             </div>
             <!-- End Poverty -->
-
 
 
         </div>

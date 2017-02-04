@@ -72,6 +72,18 @@
    padding-bottom: 0px;
 
 }
+#primary-focus-area-row-chart .x.axis{
+    height:100px;
+}
+
+#primary-focus-area-row-chart .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-30deg);
+}
+
+#primary-focus-area-pie-chart label{
+    color: black;
+}
 
 #menu-select{
     padding: 27px 0;
