@@ -1,8 +1,9 @@
+/* Bg image */
 #container {
     background-image: url("../img/blackboard.jpg");
-
 }
 
+/* Style for graphs */
 #number-projects-nd {
    font-size: 60px;
 }
@@ -57,7 +58,6 @@
    padding-bottom: 0px;
 }
 
-
 .dc-select-menu {
    background: #58D68D;
    width: 100%;
@@ -70,25 +70,17 @@
    text-align: center;
    padding-top: 4px;
    padding-bottom: 0px;
-
-}
-#primary-focus-area-row-chart .x.axis{
-    height:100px;
 }
 
-#primary-focus-area-row-chart .x.axis text {
-    text-anchor: end !important;
-    transform: rotate(-30deg);
-}
-
-#primary-focus-area-pie-chart label{
-    color: black;
+#primary-focus-area-pie-chart text {
+    fill: black;
 }
 
 #menu-select{
     padding: 27px 0;
 }
 
+/* Styles for intro button */
 .intro_button{
     margin: 0 auto 10px auto;
     display: block;

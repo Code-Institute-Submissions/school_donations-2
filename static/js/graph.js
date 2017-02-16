@@ -6,9 +6,10 @@
 //Useful to get data from multiple API's for a single analysis.
 //This function processes the data and inserts it into the apiData Variable
 queue()
-    .defer(d3.json, "/donorsUS/projects")
-    .defer(d3.json, "static/geojson/us-states.json")
+    .defer(d3.json, "/donorsUS/projects") // Get the data from MongoDB
+    .defer(d3.json, "static/geojson/us-states.json") // json file stored locally
     .await(makeGraphs);
+
 
 function makeGraphs(error, projectsJson, statesJson){
 
@@ -86,98 +87,14 @@ function makeGraphs(error, projectsJson, statesJson){
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
     var totalDonationsND = dc.numberDisplay("#total-donations-nd");
     var fundingStatusChart = dc.pieChart("#funding-chart");
-    var usChart = dc.geoChoroplethChart("#us-chart");
-   // var primaryFocusAreaChart = dc.barChart("#primary-focus-area-row-chart");
-    var primaryFocusAreaChart2 = dc.pieChart("#primary-focus-area-pie-chart")
+    var usChart = dc.geoChoroplethChart("#us-chart"); // US map with States
+
+    var primaryFocusAreaChart = dc.pieChart("#primary-focus-area-pie-chart")
 
     //We assign properties and values to our charts.
-    //We also include a select manu to choose between any of all US states for a particlar date
-    selectField = dc.selectMenu('#menu-select')
-        .dimension(stateDim)
-        .group(stateGroup);
+    //We also include a select menu to choose between any of all US states for a particular date
 
-    numberProjectsND
-        .formatNumber(d3.format("d"))
-        .valueAccessor(function(d){
-            return d;
-        })
-        .group(all);
-
-    totalDonationsND
-        .formatNumber(d3.format("d"))
-        .valueAccessor(function (d){
-            return d;
-        })
-        .group(totalDonations)
-        .formatNumber(d3.format(".3s"));
-
-    timeChart
-        .width(800)
-        .height(200)
-        .margins({top:20, right:50, bottom:30, left:50})
-        .dimension(dateDim)
-        .group(numProjectsByDate)
-        .transitionDuration(500)
-        .x(d3.time.scale().domain([minDate, maxDate]))
-        .elasticY(true)
-        .xAxisLabel("Year")
-        .yAxis().ticks(4);
-
-    resourceTypeChart
-        .width(300)
-        .height(250)
-        .dimension(resourceTypeDim)
-        .group(numProjectsByResourceType)
-        .xAxis().ticks(4);
-
-  /*  primaryFocusAreaChart
-        .width(500)
-        .height(300)
-        .dimension(primaryFocusAreaDim)
-        .group(numProjectsByPrimaryFocusArea)
-        .x(d3.scale.ordinal().domain(primaryFocusAreaDim))
-        .xUnits(dc.units.ordinal)
-        .yAxis().ticks(4)
-        ;
-        */
-
-    primaryFocusAreaChart2
-        .height(250)
-        .width(450)
-        .radius(120)
-        .dimension(primaryFocusAreaDim)
-        .group(numProjectsByPrimaryFocusArea)
-        .legend(dc.legend().x(0).y(10))
-        .minAngleForLabel(0.6)
-        .slicesCap(5)
-        .label(function (d) {
-            if (primaryFocusAreaChart2.hasFilter() && !primaryFocusAreaChart2.hasFilter(d.key)) {
-                return d.key + '(0%)';
-            }
-            var label = d.key;
-            if (all.value()) {
-                label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
-            }
-            return label;
-        })
-        .renderLabel(true)
-        .transitionDuration(500);
-
-    povertyLevelChart
-        .width(300)
-        .height(250)
-        .dimension(povertyLevelDim)
-        .group(numProjectsByPovertyLevel)
-        .xAxis().ticks(4);
-
-    fundingStatusChart
-        .height(220)
-        .radius(90)
-        .innerRadius(40)
-        .transitionDuration(1500)
-        .dimension(fundingStatus)
-        .group(numProjectsByFundingStatus);
-
+    //US Map with States to select which ones to apply. When used it overwrites the Select State Menu
     usChart
         .width(400)
         .height(165)
@@ -197,7 +114,81 @@ function makeGraphs(error, projectsJson, statesJson){
                     + "Total Donations: " + Math.round(p["value"]) + " $";
         });
 
+    // Select State Menu. When used it overwrites the US map
+    selectField = dc.selectMenu('#menu-select')
+        .dimension(stateDim)
+        .group(stateGroup);
+
+    // Metric Total Projects
+    numberProjectsND
+        .formatNumber(d3.format("d"))
+        .valueAccessor(function(d){
+            return d;
+        })
+        .group(all);
+
+    // Metric Total Donations
+    totalDonationsND
+        .formatNumber(d3.format("d"))
+        .valueAccessor(function (d){
+            return d;
+        })
+        .group(totalDonations)
+        .formatNumber(d3.format(".3s"));
+
+    //Time-line in Years
+    timeChart
+        .width(800)
+        .height(200)
+        .margins({top:20, right:50, bottom:30, left:50})
+        .dimension(dateDim)
+        .group(numProjectsByDate)
+        .transitionDuration(500)
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .elasticY(true)
+        .xAxisLabel("Year")
+        .yAxis().ticks(4);
+
+   // Pie Chart Funding Status
+    fundingStatusChart
+        .height(220)
+        .radius(90)
+        .innerRadius(40)
+        .transitionDuration(1500)
+        .dimension(fundingStatus)
+        .group(numProjectsByFundingStatus);
+
+     // Pie Chart Primary Focus Area
+    primaryFocusAreaChart
+        .height(250)
+        .radius(120)
+        .dimension(primaryFocusAreaDim)
+        .group(numProjectsByPrimaryFocusArea)
+        .legend(dc.legend().x(0).y(10))
+        .minAngleForLabel(0.6)
+        .externalLabels(50)
+        .externalLabels(1)
+        .slicesCap(6)
+        .renderLabel(true)
+        .transitionDuration(500);
+
+    // Bar Chart Resource Type
+    resourceTypeChart
+        .width(300)
+        .height(250)
+        .dimension(resourceTypeDim)
+        .group(numProjectsByResourceType)
+        .xAxis().ticks(4);
 
 
-    dc.renderAll();
+
+    // Bar Chart Poverty Level
+    povertyLevelChart
+        .width(300)
+        .height(250)
+        .dimension(povertyLevelDim)
+        .group(numProjectsByPovertyLevel)
+        .xAxis().ticks(4);
+
+     dc.renderAll();
 }

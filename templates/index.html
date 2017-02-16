@@ -11,37 +11,43 @@
 </head>
 <body class="application" id="container">
 
+    <!-- Navigation bar -->
    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="./">School Donations Dashboard</a>
             </div>
-
         </div>
     </div>
+
    <div id="start-tour" class="container-fluid">
        <div class="row">
+           <!-- Extra div to include an introduction in the tour -->
            <div class="col-sm-6 col-sm-offset-4" data-step="1"
                 data-intro="This dashboard was created using a dataset from DonorsChoose.org.
                 <br />The data represents school donations broken down by different attributes over a timeline.
                 <br />In each graph you can select the values you want to see reflected in the rest of the dashboard.
-                E.g. Select only 2016 in the timeline or select only Technology resources in the Resources graph.
-                <br />Now we will see an explanation of each graph"
-                             style="font-weight: normal" data-position="center"></div>
+                E.g. Select only 2016 in the time-line or select only Technology resources in the Resources graph.
+                <br />Now we will see an explanation of each graph" style="font-weight: normal" data-position="center">
+           </div>
+
+           <!-- Button to start the tour -->
            <div class="col-sm-12">
-
-
                 <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
 
            </div>
        </div>
-   </div>
-    <div id="outer" class="container-fluid">
+    </div>
+
+   <!-- Divs with graphs -->
+   <div id="outer" class="container-fluid">
+
+        <!-- First row -->
         <div class="row" >
             <!-- US Map -->
             <div class="col-sm-3">
                 <div class="chart-wrapper" data-step="2"
-                     data-intro="Select the state whose projects data you want to see."
+                     data-intro="Select one or multiple states to see the specific data for them. It will be overwrite the state selected in the menu"
                      style="font-weight: normal" data-position="right">
                     <div class="chart-title">
                         Donation States (Map)
@@ -53,12 +59,10 @@
             </div>
             <!-- End US Map -->
 
-
-
             <!-- menu select -->
             <div class="col-sm-1">
-                <div class="chart-wrapper" data-step="2"
-                     data-intro="Select the state whose projects data you want to see."
+                <div class="chart-wrapper" data-step="3"
+                     data-intro="Select the state to see the specific data for it. It will be overwrite the states selected in the map"
                      style="font-weight: normal" data-position="right">
                     <div class="chart-title">
                         Donation State
@@ -72,7 +76,7 @@
 
             <!-- Metric Total Projects -->
             <div class="col-sm-3 ">
-                <div class="chart-wrapper" data-step="3"
+                <div class="chart-wrapper" data-step="4"
                     data-intro="This shows the total number of donations for the selected criteria."
                     style="font-weight: normal" data-position="right">
                     <div class="chart-title">
@@ -87,7 +91,7 @@
 
             <!-- Metric Total Donations -->
             <div class="col-sm-3 ">
-                <div class="chart-wrapper" data-step="4"
+                <div class="chart-wrapper" data-step="5"
                     data-intro="This shows the total amount donated for the projects for the selected criteria."
                     style="font-weight: normal" data-position="left">
                     <div class="chart-title">
@@ -99,16 +103,16 @@
                 </div>
             </div>
             <!-- End Metric Total Donations -->
-
         </div>
+
+        <!-- Second row -->
         <div class="row">
             <div class="col-sm-12">
-
                 <div class="row">
 
                     <!-- Time Chart -->
                     <div class="col-sm-8">
-                        <div class="chart-wrapper" data-step="5"
+                        <div class="chart-wrapper" data-step="6"
                              data-intro="Shows the number of donations per month/year."
                          style="font-weight: normal" data-position="right">
                             <div class="chart-title">
@@ -123,9 +127,9 @@
 
                     <!-- funding Pie -->
                     <div class="col-sm-3">
-                        <div class="chart-wrapper" data-step="8"
+                        <div class="chart-wrapper" data-step="7"
                              data-intro="Shows the amount of projects that got the funding vs. the ones with funding expired and reallocated."
-                             style="font-weight: normal" data-position="right">
+                             style="font-weight: normal" data-position="left">
                             <div class="chart-title">
                                 Funding Status
                             </div>
@@ -136,27 +140,11 @@
                     </div>
                     <!-- End funding Pie -->
 
-                   <!-- Primary Focus Area
+                    <!-- Primary Focus Area -->
                     <div class="col-sm-4">
-                        <div class="chart-wrapper" data-step="10"
-                                     data-intro="xxxxxxt"
-                                     style="font-weight: normal" data-position="left">
-                            <div class="chart-title">
-                                Primary Focus Area
-                            </div>
-                            <div class="chart-stage">
-                                <div id="primary-focus-area-row-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Primary Focus Area -->
-
-
-                   <!-- Primary Focus Area -->
-                    <div class="col-sm-4">
-                        <div class="chart-wrapper" data-step="10"
-                                     data-intro="xxxxxxt"
-                                     style="font-weight: normal" data-position="left">
+                        <div class="chart-wrapper" data-step="8"
+                                     data-intro="Shows the Primary Focus Area for the different projects."
+                                     style="font-weight: normal" data-position="right">
                             <div class="chart-title">
                                 Primary Focus Area
                             </div>
@@ -173,8 +161,8 @@
                             <div class="chart-title">
                                 Resources Type
                             </div>
-                            <div class="chart-stage" data-step="7"
-                                 data-intro="Shows the types of resources the projects were needed for."
+                            <div class="chart-stage" data-step="9"
+                                 data-intro="Shows the types of resources the projects were created for."
                                  style="font-weight: normal" data-position="right">
                                 <div id="resource-type-row-chart"></div>
                             </div>
@@ -182,41 +170,38 @@
                     </div>
                     <!-- End Resources -->
 
-
-
-
-            <!-- Poverty -->
-            <div class="col-sm-3">
-                <div class="chart-wrapper" data-step="6"
-                             data-intro="Shows the poverty level of the people beneficiary of the project"
-                             style="font-weight: normal" data-position="left">
-                    <div class="chart-title">
-                        Poverty Level
+                    <!-- Poverty -->
+                    <div class="col-sm-3">
+                        <div class="chart-wrapper" data-step="10"
+                                     data-intro="Shows the poverty level of the people beneficiary of the project"
+                                     style="font-weight: normal" data-position="left">
+                            <div class="chart-title">
+                                Poverty Level
+                            </div>
+                            <div class="chart-stage">
+                                <div id="poverty-level-row-chart"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="chart-stage">
-                        <div id="poverty-level-row-chart"></div>
-                    </div>
+                    <!-- End Poverty -->
+
                 </div>
             </div>
-            <!-- End Poverty -->
-
-
         </div>
-    </div>
+   </div>
 
-    <hr>
-        <p class="small text-muted">Data viz &#9829; from Code Institute</p>
+   <hr>
+   <p class="small text-muted">Data viz &#9829; from Code Institute</p>
+   <script src="{{ url_for ('static', filename='lib/js/jquery.min.js')}}"></script>
+   <script src="{{ url_for ('static', filename='lib/js/bootstrap.min.js')}}"></script>
+   <script src="{{ url_for ('static', filename='lib/js/crossfilter.js')}}"></script>
+   <script src="{{ url_for ('static', filename='lib/js/d3.js')}}"></script>
+   <script src="{{ url_for ('static', filename='lib/js/dc.js')}}"></script>
+   <script src="{{ url_for ('static', filename='lib/js/queue.js')}}"></script>
 
-    <script src="{{ url_for ('static', filename='lib/js/jquery.min.js')}}"></script>
-    <script src="{{ url_for ('static', filename='lib/js/bootstrap.min.js')}}"></script>
-    <script src="{{ url_for ('static', filename='lib/js/crossfilter.js')}}"></script>
-    <script src="{{ url_for ('static', filename='lib/js/d3.js')}}"></script>
-    <script src="{{ url_for ('static', filename='lib/js/dc.js')}}"></script>
-    <script src="{{ url_for ('static', filename='lib/js/queue.js')}}"></script>
-
-    <script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
-    <script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
-    <script src="../static/lib/js/intro.js" type="text/javascript"></script>
+   <script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
+   <script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
+   <script src="../static/lib/js/intro.js" type="text/javascript"></script>
 
 </body>
 </html>
