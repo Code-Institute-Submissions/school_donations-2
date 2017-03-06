@@ -92,7 +92,7 @@ function makeGraphs(error, projectsJson, statesJson){
     var primaryFocusAreaChart = dc.pieChart("#primary-focus-area-pie-chart")
 
     //We assign properties and values to our charts.
-    //We also include a select menu to choose between any of all US states for a particular date
+
 
     //US Map with States to select which ones to apply. When used it overwrites the Select State Menu
     usChart
@@ -161,14 +161,14 @@ function makeGraphs(error, projectsJson, statesJson){
      // Pie Chart Primary Focus Area
     primaryFocusAreaChart
         .height(250)
+        .width(550)
         .radius(120)
         .dimension(primaryFocusAreaDim)
         .group(numProjectsByPrimaryFocusArea)
         .legend(dc.legend().x(0).y(10))
         .minAngleForLabel(0.6)
-        .externalLabels(50)
-        .externalLabels(1)
-        .slicesCap(6)
+        .externalLabels(0)
+        .slicesCap(7)
         .renderLabel(true)
         .transitionDuration(500);
 
@@ -179,8 +179,6 @@ function makeGraphs(error, projectsJson, statesJson){
         .dimension(resourceTypeDim)
         .group(numProjectsByResourceType)
         .xAxis().ticks(4);
-
-
 
     // Bar Chart Poverty Level
     povertyLevelChart
