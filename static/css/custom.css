@@ -94,3 +94,7 @@
 .intro_button:hover{
     background-color: #58D68D;
 }
+
+.small-text{
+    font-size: 12px;
+}

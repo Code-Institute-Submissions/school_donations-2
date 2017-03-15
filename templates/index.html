@@ -22,6 +22,12 @@
 
    <div id="start-tour" class="container-fluid">
        <div class="row">
+
+
+           <!-- Button to start the tour -->
+           <div class="col-sm-12">
+                <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
+           </div>
            <!-- Extra div to include an introduction in the tour -->
            <div class="col-sm-6 col-sm-offset-4" data-step="1"
                 data-intro="This dashboard was created using a dataset from DonorsChoose.org.
@@ -29,12 +35,6 @@
                 <br />In each graph you can select the values you want to see reflected in the rest of the dashboard.
                 E.g. Select only 2016 in the time-line or select only Technology resources in the Resources graph.
                 <br />Now we will see an explanation of each graph" style="font-weight: normal" data-position="center">
-           </div>
-
-           <!-- Button to start the tour -->
-           <div class="col-sm-12">
-                <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
-
            </div>
        </div>
     </div>
@@ -45,12 +45,12 @@
         <!-- First row -->
         <div class="row" >
             <!-- US Map -->
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="chart-wrapper" data-step="2"
                      data-intro="Select one or multiple states to see the specific data for them. It will be overwrite the state selected in the menu"
                      style="font-weight: normal" data-position="right">
                     <div class="chart-title">
-                        Donation States (Map)
+                        Donation States (Map)<br />   <span class="small-text"> (It overwrites the selection in the select menu)</span>
                     </div>
                     <div class="chart-stage">
                         <div id="us-chart"></div>
@@ -59,28 +59,15 @@
             </div>
             <!-- End US Map -->
 
-            <!-- Menu Select -->
-            <div class="col-sm-1">
-                <div class="chart-wrapper" data-step="3"
-                     data-intro="Select the state to see the specific data for it. It will be overwrite the states selected in the map"
-                     style="font-weight: normal" data-position="right">
-                    <div class="chart-title">
-                        Donation State
-                    </div>
-                    <div class="chart-stage">
-                        <div id="menu-select"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Menu Select -->
+
 
             <!-- Metric Total Projects -->
-            <div class="col-sm-3 ">
-                <div class="chart-wrapper" data-step="4"
+            <div class="col-sm-4">
+                <div class="chart-wrapper" data-step="3"
                     data-intro="This shows the total number of donations for the selected criteria."
                     style="font-weight: normal" data-position="right">
                     <div class="chart-title">
-                        Total Number of Donations
+                        Total Number of Projects
                     </div>
                     <div id="n-donations" class="chart-stage" >
                         <div id="number-projects-nd"></div>
@@ -90,8 +77,8 @@
             <!-- End Metric Total Projects -->
 
             <!-- Metric Total Donations -->
-            <div class="col-sm-3 ">
-                <div class="chart-wrapper" data-step="5"
+            <div class="col-sm-4 ">
+                <div class="chart-wrapper" data-step="4"
                     data-intro="This shows the total amount donated for the projects for the selected criteria."
                     style="font-weight: normal" data-position="left">
                     <div class="chart-title">
@@ -111,8 +98,8 @@
                 <div class="row">
 
                     <!-- Time Chart -->
-                    <div class="col-sm-8">
-                        <div class="chart-wrapper" data-step="6"
+                    <div class="col-sm-6">
+                        <div class="chart-wrapper" data-step="5"
                              data-intro="Shows the number of donations per month/year."
                          style="font-weight: normal" data-position="right">
                             <div class="chart-title">
@@ -127,7 +114,7 @@
 
                     <!-- funding Pie -->
                     <div class="col-sm-3">
-                        <div class="chart-wrapper" data-step="7"
+                        <div class="chart-wrapper" data-step="6"
                              data-intro="Shows the amount of projects that got the funding vs. the ones with funding expired and reallocated."
                              style="font-weight: normal" data-position="left">
                             <div class="chart-title">
@@ -138,13 +125,13 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End funding Pie -->
+                    <!-- End funding Pie-->
                 </div>
-                <!-- Third row -->
+                <!-- Third row-->
                 <div class="row">
                     <!-- Primary Focus Area -->
                     <div class="col-sm-4">
-                        <div class="chart-wrapper" data-step="8"
+                        <div class="chart-wrapper" data-step="7"
                                      data-intro="Shows the Primary Focus Area for the different projects."
                                      style="font-weight: normal" data-position="right">
                             <div class="chart-title">
@@ -158,12 +145,12 @@
                     <!-- End Primary Focus Area -->
 
                     <!-- Resources -->
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Resources Type
                             </div>
-                            <div class="chart-stage" data-step="9"
+                            <div class="chart-stage" data-step="8"
                                  data-intro="Shows the types of resources the projects were created for."
                                  style="font-weight: normal" data-position="right">
                                 <div id="resource-type-row-chart"></div>
@@ -174,7 +161,7 @@
 
                     <!-- Poverty -->
                     <div class="col-sm-3">
-                        <div class="chart-wrapper" data-step="10"
+                        <div class="chart-wrapper" data-step="9"
                                      data-intro="Shows the poverty level of the people beneficiary of the project"
                                      style="font-weight: normal" data-position="left">
                             <div class="chart-title">

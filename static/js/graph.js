@@ -15,13 +15,26 @@ function makeGraphs(error, projectsJson, statesJson){
 
     //Clean projectJson data
     var donorsUSProjects = projectsJson; //Pass the data inside the projectsJson variable into our dataSet variable
+    var geoStates = statesJson["features"];
+
     var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S"); // Parse the date data type to suit our charting needs
     donorsUSProjects.forEach(function(d){
-        d["date_posted"] = dateFormat.parse(d["date_posted"]); //Set the data type as number using the + operator
+        d["date_posted"] = dateFormat.parse(d["date_posted"]);
         d["date_posted"].setDate(1); // we set all projects date days to 1.
         // All projects from the same month will have the same dateime value
-        d["total_donations"] = +d["total_donations"]
+        d["total_donations"] = +d["total_donations"] // Set the total donations as number using the + operator
     });
+
+    //statesJson = JSON.parse(JSON.stringify(statesJson).split('"name":').join('"school_state":'));
+
+//COMBINE 2 FILES
+
+    //var combine_obj={};
+    //for(var school_state in donorsUSProjects)  combine_obj[school_state]=donorsUSProjects[school_state];
+   // for(var school_state in geoStates.properties)  combine_obj[school_state]=geoStates.properties;
+
+
+    //var donorsUSGeo = $.extend(projectsJson, statesJson["Features"]);
 
 
     //Ingesting the data into a crossfilter instance and creating dimensions based on the crossfilter instance
@@ -32,7 +45,14 @@ function makeGraphs(error, projectsJson, statesJson){
     //Create a Crossfilter instance
     var ndx = crossfilter(donorsUSProjects);
 
+
     //Define Dimensions
+   // var state2Dim = ndx2.dimension(function(e){
+   //     console.log(e["properties"].name)
+   //     return e["properties"].name;
+
+   // })
+
     var dateDim = ndx.dimension(function(d){
         return d["date_posted"];
     });
@@ -45,9 +65,7 @@ function makeGraphs(error, projectsJson, statesJson){
     var stateDim = ndx.dimension(function (d) {
         return d["school_state"];
     });
-    var totalDonationsDim = ndx.dimension(function (d) {
-        return d["total_donations"];
-    });
+
     var fundingStatus = ndx.dimension(function(d){
         return d["funding_status"];
     });
@@ -64,6 +82,7 @@ function makeGraphs(error, projectsJson, statesJson){
         return d["total_donations"];
     });
     var stateGroup = stateDim.group();
+    //var state2Group = state2Dim.group();
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
 
 
@@ -96,8 +115,8 @@ function makeGraphs(error, projectsJson, statesJson){
 
     //US Map with States to select which ones to apply. When used it overwrites the Select State Menu
     usChart
-        .width(400)
-        .height(165)
+        .width(600)
+        .height(300)
         .dimension(stateDim)
         .group(totalDonationsByState)
         .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
@@ -106,8 +125,8 @@ function makeGraphs(error, projectsJson, statesJson){
             return d.properties.name;
         })
         .projection(d3.geo.albersUsa()
-                    .scale(350)
-                    .translate([150, 80]))
+                    .scale(550)
+                    .translate([250, 150]))
         .title(function (p) {
             return "State: " + p["key"]
                     + "\n"
@@ -189,4 +208,8 @@ function makeGraphs(error, projectsJson, statesJson){
         .xAxis().ticks(4);
 
      dc.renderAll();
+
+
+
+
 }
