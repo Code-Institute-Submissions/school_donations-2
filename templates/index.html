@@ -26,7 +26,8 @@
 
            <!-- Button to start the tour -->
            <div class="col-sm-12">
-                <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
+                <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">
+                    Start Tour!</button>
            </div>
            <!-- Extra div to include an introduction in the tour -->
            <div class="col-sm-6 col-sm-offset-4" data-step="1"
@@ -47,29 +48,32 @@
             <!-- US Map -->
             <div class="col-sm-5">
                 <div class="chart-wrapper" data-step="2"
-                     data-intro="Select one or multiple states to see the specific data for them. It will be overwrite the state selected in the menu"
+                     data-intro="Select one or multiple states to see the specific data for them. "
                      style="font-weight: normal" data-position="right">
                     <div class="chart-title">
-                        Donation States (Map)<br />   <span class="small-text"> (It overwrites the selection in the select menu)</span>
+                        Donation States (Map)<br />   <span class="small-text">
+                        (It overwrites the selection in the select menu)</span>
                     </div>
                     <div class="chart-stage">
                         <div id="us-chart"></div>
-                    </div>
+
+                </div>
+                <div> Original from
+                    <a href="http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb"
+                       target="_blank">Adil Moujahid's tutorial</a> </div>
                 </div>
             </div>
             <!-- End US Map -->
 
-
-
             <!-- Metric Total Projects -->
             <div class="col-sm-4">
                 <div class="chart-wrapper" data-step="3"
-                    data-intro="This shows the total number of donations for the selected criteria."
+                    data-intro="Total number of projects for the selected criteria."
                     style="font-weight: normal" data-position="right">
                     <div class="chart-title">
                         Total Number of Projects
                     </div>
-                    <div id="n-donations" class="chart-stage" >
+                    <div id="num-projects" class="chart-stage" >
                         <div id="number-projects-nd"></div>
                     </div>
                 </div>
@@ -79,12 +83,12 @@
             <!-- Metric Total Donations -->
             <div class="col-sm-4 ">
                 <div class="chart-wrapper" data-step="4"
-                    data-intro="This shows the total amount donated for the projects for the selected criteria."
+                    data-intro="Total amount donated to the projects for the selected criteria."
                     style="font-weight: normal" data-position="left">
                     <div class="chart-title">
                         Total Donations in USD
                     </div>
-                    <div class="chart-stage">
+                    <div  id="total-donations" class="chart-stage">
                         <div id="total-donations-nd"></div>
                     </div>
                 </div>
@@ -96,11 +100,10 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
-
                     <!-- Time Chart -->
                     <div class="col-sm-6">
                         <div class="chart-wrapper" data-step="5"
-                             data-intro="Shows the number of donations per month/year."
+                             data-intro="Number of donations per month/year."
                          style="font-weight: normal" data-position="right">
                             <div class="chart-title">
                                 Number of Donations
@@ -112,11 +115,11 @@
                     </div>
                     <!-- End Time Chart -->
 
-                    <!-- funding Pie -->
+                    <!-- Funding Pie Chart -->
                     <div class="col-sm-3">
                         <div class="chart-wrapper" data-step="6"
-                             data-intro="Shows the amount of projects that got the funding vs. the ones with funding expired and reallocated."
-                             style="font-weight: normal" data-position="left">
+                             data-intro="Amount of projects that got the funding vs. the ones with funding expired
+                             and reallocated." style="font-weight: normal" data-position="left">
                             <div class="chart-title">
                                 Funding Status
                             </div>
@@ -125,15 +128,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End funding Pie-->
+                    <!-- End Funding Pie Chart-->
                 </div>
                 <!-- Third row-->
                 <div class="row">
-                    <!-- Primary Focus Area -->
+                    <!-- Primary Focus Area Pie Chart -->
                     <div class="col-sm-4">
                         <div class="chart-wrapper" data-step="7"
-                                     data-intro="Shows the Primary Focus Area for the different projects."
-                                     style="font-weight: normal" data-position="right">
+                             data-intro="Primary area of focus for the different projects."
+                             style="font-weight: normal" data-position="right">
                             <div class="chart-title">
                                 Primary Focus Area
                             </div>
@@ -142,27 +145,27 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Primary Focus Area -->
+                    <!-- End Primary Focus Area Pie Chart -->
 
-                    <!-- Resources -->
+                    <!-- Resources Row Chart -->
                     <div class="col-sm-3">
                         <div class="chart-wrapper">
                             <div class="chart-title">
                                 Resources Type
                             </div>
                             <div class="chart-stage" data-step="8"
-                                 data-intro="Shows the types of resources the projects were created for."
+                                 data-intro="Types of resources the projects were created for."
                                  style="font-weight: normal" data-position="right">
                                 <div id="resource-type-row-chart"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- End Resources -->
+                    <!-- End Resources Row Chart -->
 
-                    <!-- Poverty -->
+                    <!-- Poverty Row Chart -->
                     <div class="col-sm-3">
                         <div class="chart-wrapper" data-step="9"
-                                     data-intro="Shows the poverty level of the people beneficiary of the project"
+                                     data-intro="Poverty level of the people beneficiary of the project"
                                      style="font-weight: normal" data-position="left">
                             <div class="chart-title">
                                 Poverty Level
@@ -172,7 +175,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Poverty -->
+                    <!-- End Poverty Row Chart -->
 
                 </div>
             </div>

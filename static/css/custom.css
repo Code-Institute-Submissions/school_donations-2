@@ -1,9 +1,19 @@
-/* Bg image */
+/* Background image */
 #container {
     background-image: url("../img/blackboard.jpg");
 }
 
-/* Style for graphs */
+/* Styles for graphs by classes */
+.chart-title{
+    background-color: #F4F6F6;
+}
+
+.dc-chart g.row text { /*Black text in bars in row charts */
+   fill: black;
+   font-size: 12px;
+}
+
+/* Style for graphs by graph id */
 #number-projects-nd {
    font-size: 60px;
 }
@@ -12,9 +22,21 @@
    font-size: 60px;
 }
 
-#n-donations{
-    background: #58D68D;
+#num-projects {
+   background: #1E96FF;
+   position: relative;
+   font-size: 29px;
+   color: white;
+   vertical-align: middle;
+   text-align: center;
+   padding-top: 12px;
+   padding-bottom: 0px;
+}
+
+#total-donations {
+    background: #C4E4FF;
     position: relative;
+
     font-size: 29px;
     color: white;
     vertical-align: middle;
@@ -23,62 +45,11 @@
     padding-bottom: 0;
 }
 
-.chart-title{
-    background-color: #F4F6F6;
-}
-
-.dc-chart g.row text {
-   fill: black;
-   font-size: 12px;
-}
-
-#total-projects {
-   background: #58D68D;
-   width: 200px;
-   position: relative;
-   height: 60px;
-   font-size: 29px;
-   color: white;
-   vertical-align: middle;
-   text-align: center;
-   padding-top: 12px;
-   padding-bottom: 0px;
-}
-
-#net-donations {
-   background: #58D68D;
-   width: 200px;
-   position: relative;
-   height: 60px;
-   font-size: 29px;
-   color: white;
-   vertical-align: middle;
-   text-align: center;
-   padding-top: 12px;
-   padding-bottom: 0px;
-}
-
-.dc-select-menu {
-   background: #58D68D;
-   width: 100%;
-   border: none;
-   position: relative;
-   height: 31px;
-   font-size: 15px;
-   color: white;
-   vertical-align: middle;
-   text-align: center;
-   padding-top: 4px;
-   padding-bottom: 0px;
-}
 
 #primary-focus-area-pie-chart text {
     fill: black;
 }
 
-#menu-select{
-    padding: 27px 0;
-}
 
 /* Styles for intro button */
 .intro_button{
@@ -86,7 +57,7 @@
     display: block;
     width: 150px;
     height: 50px;
-    background-color: #d58512;
+    background-color: #ff6600;
     border-radius: 15px;
     font-size: 16px;
     font-weight: bold;

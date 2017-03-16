@@ -15,26 +15,13 @@ function makeGraphs(error, projectsJson, statesJson){
 
     //Clean projectJson data
     var donorsUSProjects = projectsJson; //Pass the data inside the projectsJson variable into our dataSet variable
-    var geoStates = statesJson["features"];
 
     var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S"); // Parse the date data type to suit our charting needs
     donorsUSProjects.forEach(function(d){
         d["date_posted"] = dateFormat.parse(d["date_posted"]);
         d["date_posted"].setDate(1); // we set all projects date days to 1.
-        // All projects from the same month will have the same dateime value
         d["total_donations"] = +d["total_donations"] // Set the total donations as number using the + operator
     });
-
-    //statesJson = JSON.parse(JSON.stringify(statesJson).split('"name":').join('"school_state":'));
-
-//COMBINE 2 FILES
-
-    //var combine_obj={};
-    //for(var school_state in donorsUSProjects)  combine_obj[school_state]=donorsUSProjects[school_state];
-   // for(var school_state in geoStates.properties)  combine_obj[school_state]=geoStates.properties;
-
-
-    //var donorsUSGeo = $.extend(projectsJson, statesJson["Features"]);
 
 
     //Ingesting the data into a crossfilter instance and creating dimensions based on the crossfilter instance
@@ -47,12 +34,6 @@ function makeGraphs(error, projectsJson, statesJson){
 
 
     //Define Dimensions
-   // var state2Dim = ndx2.dimension(function(e){
-   //     console.log(e["properties"].name)
-   //     return e["properties"].name;
-
-   // })
-
     var dateDim = ndx.dimension(function(d){
         return d["date_posted"];
     });
@@ -65,7 +46,6 @@ function makeGraphs(error, projectsJson, statesJson){
     var stateDim = ndx.dimension(function (d) {
         return d["school_state"];
     });
-
     var fundingStatus = ndx.dimension(function(d){
         return d["funding_status"];
     });
@@ -82,9 +62,7 @@ function makeGraphs(error, projectsJson, statesJson){
         return d["total_donations"];
     });
     var stateGroup = stateDim.group();
-    //var state2Group = state2Dim.group();
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
-
 
     var all=ndx.groupAll();
     var totalDonations = ndx.groupAll().reduceSum(function (d){
@@ -99,27 +77,27 @@ function makeGraphs(error, projectsJson, statesJson){
 
     //We define the chart types objects using DC.js library.
     //We also bind the charts to the div ID's in index.html
-    //Charts
-    var timeChart = dc.barChart("#time-chart");
-    var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
-    var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
+    var usChart = dc.geoChoroplethChart("#us-chart"); // US map with States
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
     var totalDonationsND = dc.numberDisplay("#total-donations-nd");
+    var timeChart = dc.barChart("#time-chart");
+    var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
     var fundingStatusChart = dc.pieChart("#funding-chart");
-    var usChart = dc.geoChoroplethChart("#us-chart"); // US map with States
-
     var primaryFocusAreaChart = dc.pieChart("#primary-focus-area-pie-chart")
+    var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
 
-    //We assign properties and values to our charts.
+   //We assign properties and values to our charts.
 
-
-    //US Map with States to select which ones to apply. When used it overwrites the Select State Menu
+    //US Map with States to select which ones to apply to the data shown.
+    //Uses data from DonorUSProjects to bind with the other graphs and data from us-states (geoJson) to overlay
+    //the states in the map. Color scale means amount donated: dark = bigger donations and light = smaller donations.
     usChart
         .width(600)
         .height(300)
         .dimension(stateDim)
         .group(totalDonationsByState)
-        .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
+        .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF",
+            "#1E96FF", "#0089FF", "#0061B5"])
         .colorDomain([0, max_state])
         .overlayGeoJson(statesJson["features"], "state", function (d) {
             return d.properties.name;
@@ -133,17 +111,13 @@ function makeGraphs(error, projectsJson, statesJson){
                     + "Total Donations: " + Math.round(p["value"]) + " $";
         });
 
-    // Select State Menu. When used it overwrites the US map
-    selectField = dc.selectMenu('#menu-select')
-        .dimension(stateDim)
-        .group(stateGroup);
-
     // Metric Total Projects
     numberProjectsND
         .formatNumber(d3.format("d"))
         .valueAccessor(function(d){
             return d;
         })
+        .height(100)
         .group(all);
 
     // Metric Total Donations
@@ -153,6 +127,7 @@ function makeGraphs(error, projectsJson, statesJson){
             return d;
         })
         .group(totalDonations)
+        .height(100)
         .formatNumber(d3.format(".3s"));
 
     //Time-line in Years
@@ -162,11 +137,13 @@ function makeGraphs(error, projectsJson, statesJson){
         .margins({top:20, right:50, bottom:30, left:50})
         .dimension(dateDim)
         .group(numProjectsByDate)
+        .colors(d3.scale.ordinal().range(["#4682B4"]))
         .transitionDuration(500)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .elasticY(true)
         .xAxisLabel("Year")
         .yAxis().ticks(4);
+
 
    // Pie Chart Funding Status
     fundingStatusChart
@@ -175,15 +152,19 @@ function makeGraphs(error, projectsJson, statesJson){
         .innerRadius(40)
         .transitionDuration(1500)
         .dimension(fundingStatus)
-        .group(numProjectsByFundingStatus);
+        .group(numProjectsByFundingStatus)
+        .colors(d3.scale.ordinal().range(["#5F9EA0", "#4682B4", "#B0C4DE", "#ADD8E6", "#87CEFA",
+            "#6495ED", "#00BFFF", "#1E90FF"]));
 
-     // Pie Chart Primary Focus Area
+    // Pie Chart Primary Focus Area
     primaryFocusAreaChart
         .height(250)
         .width(550)
         .radius(120)
         .dimension(primaryFocusAreaDim)
         .group(numProjectsByPrimaryFocusArea)
+        .colors(d3.scale.ordinal().range(["#5F9EA0", "#4682B4", "#B0C4DE", "#ADD8E6", "#87CEFA",
+            "#6495ED", "#00BFFF", "#1E90FF"]))
         .legend(dc.legend().x(0).y(10))
         .minAngleForLabel(0.6)
         .externalLabels(0)
@@ -191,12 +172,16 @@ function makeGraphs(error, projectsJson, statesJson){
         .renderLabel(true)
         .transitionDuration(500);
 
+
+
     // Bar Chart Resource Type
     resourceTypeChart
         .width(300)
         .height(250)
         .dimension(resourceTypeDim)
         .group(numProjectsByResourceType)
+        .colors(d3.scale.ordinal().range(["#5F9EA0", "#4682B4", "#B0C4DE", "#ADD8E6", "#87CEFA",
+            "#6495ED", "#00BFFF", "#1E90FF"]))
         .xAxis().ticks(4);
 
     // Bar Chart Poverty Level
@@ -205,11 +190,9 @@ function makeGraphs(error, projectsJson, statesJson){
         .height(250)
         .dimension(povertyLevelDim)
         .group(numProjectsByPovertyLevel)
+        .colors(d3.scale.ordinal().range(["#5F9EA0", "#4682B4", "#B0C4DE", "#ADD8E6", "#87CEFA",
+            "#6495ED", "#00BFFF", "#1E90FF"]))
         .xAxis().ticks(4);
 
      dc.renderAll();
-
-
-
-
 }
