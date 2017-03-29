@@ -82,7 +82,8 @@ and different screen sizes using the Element Inspector and the responsive/device
 - Content: Tested that the graphs show the correct values when loading the data
 - Data binding: Tested that the graphs show the correct values when the data binding is happening.
 - Tour: Tested that the tooltip created with intro.js shows the right content in the right places, it's fully
-    visible even in small screens ### need to test this
+    visible even in small screens - all data steps have been aligned center to achieve that.
+    
    
 
 ## Challenges
