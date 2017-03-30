@@ -35,7 +35,7 @@ The technology used in this project is:
 - Queue.js: An asynchronous helper library for JavaScript.
 - Mongo DB: NoSQL Database used to convert and present our data in JSON format.
 - Flask: A Python based  micro – framework  used to serve our data from the server to our web based interface.
-- Bootstrap: JavaScript library ######ADD INFO###
+- Bootstrap: The most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.
 - keen.js: A dashboard template library. used in conjunction with keen.js to layout our dashboard elements.
 - queue.js: An asynchronous helper library for data ingestion involving multivariate datasets.
 - intro.js: Assign an interactive tool tip to our graphs and display helpful information to the user who is going to use the dashboard.
@@ -84,11 +84,6 @@ and different screen sizes using the Element Inspector and the responsive/device
 - Tour: Tested that the tooltip created with intro.js shows the right content in the right places, it's fully
     visible even in small screens - all data steps have been aligned center to achieve that.
     
-   
-
-## Challenges
-
-
 
 ## Known Issues
 The main layout using bootstrap is responsive but the graphs themselves are not.   
@@ -103,4 +98,4 @@ do it, so when the screen is smaller the overflow is hidden and you can only see
 3. Upload the csv data file to MongoDB to create the json
 4. Connect to MongoDB
 5. Run school_donations.py
-6. The project will run in localhost http://localhost:5000/
+6. The project will run in [localhost](http://localhost:5000/)
