@@ -26,18 +26,6 @@ def index():
 # Route to connect to Mongo DB, get the data from the DB and store it in json_projects
 @app.route("/donorsUS/projects")
 def donor_projects():
-#     connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
-  #   collection = connection[DBS_NAME][COLLECTION_NAME]
-  #   projects = collection.find(projection=FIELDS, limit=55000)
-  #   json_projects = []
-  #   for project in projects:
-  #       json_projects.append(project)
-  #   json_projects = json.dumps(json_projects)
-  #   connection.close()
- #   return json_projects
-
-# A constant that defines the record fields that we wish to retrieve.
-
 
 # Open a connection to MongoDB using a with statement such that the
 # connection will be closed as soon as we exit the with statement
