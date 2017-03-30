@@ -98,9 +98,9 @@ do it, so when the screen is smaller the overflow is hidden and you can only see
 
 ## Contributing / Getting the code up and running
 
-1. clone repository
-2. make sure you have installed the packages in requirements.txt
-3. upload the csv data file to MongoDB to create the json
-4. connect to MongoDB
+1. Clone repository
+2. Make sure you have installed the packages in requirements.txt
+3. Upload the csv data file to MongoDB to create the json
+4. Connect to MongoDB
 5. Run school_donations.py
-6. the project will run in localhost http://localhost:5000/
+6. The project will run in localhost http://localhost:5000/

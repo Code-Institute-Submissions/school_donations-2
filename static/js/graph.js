@@ -159,14 +159,14 @@ function makeGraphs(error, projectsJson, statesJson){
     // Pie Chart Primary Focus Area
     primaryFocusAreaChart
         .height(250)
-        .width(550)
+        .width(520)
         .radius(120)
         .dimension(primaryFocusAreaDim)
         .group(numProjectsByPrimaryFocusArea)
         .colors(d3.scale.ordinal().range(["#5F9EA0", "#4682B4", "#B0C4DE", "#ADD8E6", "#87CEFA",
             "#6495ED", "#00BFFF", "#1E90FF"]))
         .legend(dc.legend().x(0).y(10))
-        .minAngleForLabel(0.6)
+        .minAngleForLabel(0.7)
         .externalLabels(0)
         .slicesCap(7)
         .renderLabel(true)
