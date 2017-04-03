@@ -1,16 +1,11 @@
-/**
- * Created by Irene on 30/01/2017.
- */
 
 //queue() function utilises the queue library for asynchronous loading.
-//Useful to get data from multiple API's for a single analysis.
-//This function processes the data and inserts it into the apiData Variable
 queue()
     .defer(d3.json, "/donorsUS/projects") // Get the data from MongoDB
     .defer(d3.json, "static/geojson/us-states.json") // json file stored locally
     .await(makeGraphs);
 
-
+//When the data is ready, this function processes the data and uses it to create the graphs
 function makeGraphs(error, projectsJson, statesJson){
 
     //Clean projectJson data
@@ -20,14 +15,11 @@ function makeGraphs(error, projectsJson, statesJson){
     donorsUSProjects.forEach(function(d){
         d["date_posted"] = dateFormat.parse(d["date_posted"]);
         d["date_posted"].setDate(1); // we set all projects date days to 1.
-        d["total_donations"] = +d["total_donations"] // Set the total donations as number using the + operator
+        d["total_donations"] = +d["total_donations"]; // Set the total donations as number using the + operator
     });
 
 
     //Ingesting the data into a crossfilter instance and creating dimensions based on the crossfilter instance
-    //Crossfilter acts as a two way data binding pipeline.
-    //Whenever you make a selection on the data, it is automatically applied to other charts,
-    // as well enabling our drill down functionality.
 
     //Create a Crossfilter instance
     var ndx = crossfilter(donorsUSProjects);
@@ -61,22 +53,19 @@ function makeGraphs(error, projectsJson, statesJson){
     var totalDonationsByState = stateDim.group().reduceSum(function (d){
         return d["total_donations"];
     });
-    var stateGroup = stateDim.group();
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
-
-    var all=ndx.groupAll();
     var totalDonations = ndx.groupAll().reduceSum(function (d){
         return d["total_donations"];
     });
-
     var max_state = totalDonationsByState.top(1)[0].value;
+
+    var all=ndx.groupAll();
 
     //Define values (to be used in charts)
     var minDate = dateDim.bottom(1)[0]["date_posted"];
     var maxDate = dateDim.top(1)[0]["date_posted"];
 
     //We define the chart types objects using DC.js library.
-    //We also bind the charts to the div ID's in index.html
     var usChart = dc.geoChoroplethChart("#us-chart"); // US map with States
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
     var totalDonationsND = dc.numberDisplay("#total-donations-nd");
@@ -105,7 +94,7 @@ function makeGraphs(error, projectsJson, statesJson){
         .projection(d3.geo.albersUsa()
                     .scale(550)
                     .translate([250, 150]))
-        .title(function (p) {
+        .title(function (p) { //Show the State name and total donations when hovering over
             return "State: " + p["key"]
                     + "\n"
                     + "Total Donations: " + Math.round(p["value"]) + " $";
@@ -166,13 +155,10 @@ function makeGraphs(error, projectsJson, statesJson){
         .colors(d3.scale.ordinal().range(["#5F9EA0", "#4682B4", "#B0C4DE", "#ADD8E6", "#87CEFA",
             "#6495ED", "#00BFFF", "#1E90FF"]))
         .legend(dc.legend().x(0).y(10))
-        .minAngleForLabel(0.7)
-        .externalLabels(0)
-        .slicesCap(7)
+        .minAngleForLabel(0.7) //only show label in big slices to avoid overlay
+        .slicesCap(7) //limit the number of slices
         .renderLabel(true)
         .transitionDuration(500);
-
-
 
     // Bar Chart Resource Type
     resourceTypeChart
