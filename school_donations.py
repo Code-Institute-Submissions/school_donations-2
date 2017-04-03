@@ -8,10 +8,8 @@ app = Flask(__name__)
 
 # Connect to MONGODB Database
 MONGODB_HOST = 'ds131900.mlab.com:31900'
-# MONGODB_PORT = 27017
 MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
 DBS_NAME = os.getenv('MONGO_DB_NAME', 'donorsUSA')
-# DBS_NAME = 'heroku_dfzvlfvw'
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
           'date_posted': True, 'total_donations': True, '_id': False, 'primary_focus_area': True}
@@ -42,4 +40,4 @@ def donor_projects():
 
 # Initiate the app
 if __name__ == '__main__':
-    app.run(debug=True) # If debug=True it track the changes while running.
+    app.run()
