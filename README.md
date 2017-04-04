@@ -99,3 +99,15 @@ do it, so when the screen is smaller the overflow is hidden and you can only see
 4. Connect to MongoDB
 5. Run school_donations.py
 6. The project will run in [localhost](http://localhost:5000/)
+
+
+
+NOTE: 
+The master branch is not linked to Heroku to deploy automatically.  
+* GitHub Repository: https://github.com/IreneG5/school_donations  
+* Heroku-Git: https://git.heroku.com/thawing-brook-79329.git  
+* Deployed version in Heroku: https://thawing-brook-79329.herokuapp.com/  
+* Deployed version in custom domain: http://www.schooldonations.ireneg.eu/ 
+
+
+Thank you for visiting my project.
